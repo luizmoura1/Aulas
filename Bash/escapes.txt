@@ -1,0 +1,31 @@
+* ASCII sequências de escape C-style (American Standard Code for Information Interchange https://www.ascii-code.com/)
+A barra invertida 'escapa' o valor (em octal e hexadecimal) e a letra para se referir a uma tecla:
+
+tecla           valor           letra   decimal     comentários
+BS, backspace   010, x08        b       8
+HT, tab         011, x09        t       9
+LF, enter       012, x0A, x0a   n       10          new line, quebra de linha, line feed
+CR, home        015, x0D, x0d   r       13          carriage return, pouco usado
+ESC             033, x1B, x1b   e       27          usado para introduzir sequência de escape ANSI - Obs.: a forma \e não funciona em Java, JS e Python!
+
+* ANSI sequências de escape (American National Standards Institute https://www.ansi.org/)
+SGR: select graphic rendition (selecionar renderização gráfica)
+ESC [ val1; val2; ...; valN m
+val é o atributo de estilo ou de cor; se val=0, reset (estilo e cor padrão do terminal)
+
+estilos:
+1   negrito
+3   itálico
+4   sublinhado
+7   reverso
+9   riscado
+
+cores: (prefixos 3 ou 9 para letra, 4 ou 10 para fundo)
+0   preto
+1   vermelho
+2   verde
+3   amarelo
+4   azul
+5   magenta
+6   ciano
+7   branco

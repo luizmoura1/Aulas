@@ -1,0 +1,25 @@
+destino             origem              modo endereçamento     exemplo modelo              exemplo real
+
+registrador         literal             immediate              instr reg, valor            mov eax, 1
+[identificador]     literal             direct memory          instr type [iden], valor    mov byte [iden], 1
+[registrador]       literal             register indirect      instr type [reg], valor     mov byte [eax], 1
+
+
+registrador         registrador         register               instr reg, reg              mov eax, ebx
+registrador         [registrador]       register indirect      instr reg, [reg]            mov eax, [ebx]
+[registrador]       registrador         register indirect      instr [reg], reg            mov [eax], ebx
+
+
+registrador         identificador       immediate              instr reg, iden             mov eax, iden
+[identificador]     registrador         direct memory          instr [iden], reg           mov [iden], eax
+
+
+registrador         [identificador]     direct memory          instr reg, [iden]           mov eax, [iden]
+
+[registrador]       identificador       register indirect      instr type [reg], iden      mov dword [eax], iden
+
+
+
+identificador ou iden           = nome, rótulo, endereço, ponteiro, posição na memória (constante)
+[ identificador ] ou  [iden]    = conteúdo, valor                                      (variável) 
+

@@ -1,0 +1,19 @@
+Passos para montar e linkeditar o programa prog
+
+1 - Dialeto Intel (NASM, controle direto)
+nasm -f elf32 prog.asm                              ; assembler (https://www.nasm.us/docs/3.01/)
+ld -m elf_i386 prog.o -o prog                       ; linker    | -e entryPoint (default: _start)
+
+2 - Dialeto AT&T (GAS)
+a) Controle direto (entryPoint: _start)
+as --32 prog.s -o prog.o                            ; assembler
+ld -m elf_i386 prog.o -o prog                       ; linker    | -e entryPoint (default: _start)
+
+b) Via driver C (entryPoint: main)
+gcc -m32 prog.s -o prog                             ; driver (GAS + linker + startup + libc)
+
+Para rodar, em qualquer caso:
+./prog
+
+Para ver o valor do status de saída:
+echo $?

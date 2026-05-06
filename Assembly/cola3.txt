@@ -1,0 +1,21 @@
+EQU é semelhante à diretiva %DEFINE (por sua vez similar a #DEFINE de C), 
+mas não permite redefinição (ao contrário de %DEFINE); 
+e avalia uma expressão matemática na definição, enquanto %DEFINE apenas guarda a expressão.
+
+
+globl _start
+_start:
+
+; instruções
+call rotina_que_retorna 
+jmp rotina_que_não_retorna
+
+rotina_que_retorna:    
+        ; instruções
+        int 0x80
+        ret
+
+rotina_que_não_retorna:    
+        ; instruções
+        int 0x80
+

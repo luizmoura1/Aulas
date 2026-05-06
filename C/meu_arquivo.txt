@@ -1,0 +1,1 @@
+#define MEU_LITERAL "Oi, mundo!\n"

@@ -1,0 +1,5 @@
+include <stdlib.h>
+
+system("type escapes.txt");     //Windows - para janela: start
+system("cat escapes.txt");      //Linux - para janela: notepad.exe  mas, se estiver completamente no Linux, xdg-open
+ 

@@ -1,0 +1,7 @@
+Tamanhos, letras e significados (x86)                               ; caractere e inteiros
+bits    bytes   nome        apelido Intel letra     AT&T sufixo     C x86 32-bit (ILP32)
+8       1       byte        byte    b               b               char
+16      2       word        word    w               w               short (int)
+32      4       doubleword  dword   d               l               int, long (int), ponteiros
+
+64      8       quadword    qword   q               q               long long (int)

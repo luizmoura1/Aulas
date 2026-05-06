@@ -1,0 +1,3 @@
+    const char CST1[] = "Oi, ";
+    //const char CST1[] = {79,105,44,32,0};
+    //const char CST1[] = {'O', 'i',',',' ','\0'};

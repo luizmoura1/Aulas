@@ -1,0 +1,22 @@
+
+const rdln  = require('readline')
+const const_global_saudacao = 'Olá, '
+let var_global_nome
+
+
+
+const rl = rdln.createInterface({
+	input: process.stdin, 
+	output: process.stdout
+})
+
+function funcao_callback(param){
+	var_global_nome = param
+	process.stdout.write(`${const_global_saudacao}${var_global_nome}!\n`)
+	rl.close()
+}
+
+
+
+rl.question('Digite um nome: ', funcao_callback)
+

@@ -1,0 +1,37 @@
+1) Declaração e definição de variável string
+
+char arr[n];  //Sem atribuição (inicialização) é necessário incluir o tamanho, isto é, o número de caracteres (incluindo o terminador '\0')
+
+Variável local não limpa a memória reservada.  Por isso é melhor fazer isto explicitamente:
+char arr[n] = "";
+char arr[n] = {0};
+char arr[n] = {'\0'};
+
+Em caso de atribuição, mesmo que com valor ou conteúdo nulo, pode-se omitir o tamanho:
+char arr[] = "";
+char arr[] = {0};
+char arr[] = {'\0'};
+Observe que as formas acima reservam e limpam apenas um byte.  Se quisermos, por exemplo, reservar espaço para uma string de 3 caracteres, faríamos:
+char arr[] = "   ";
+char arr[] = {0,0,0,0};
+char arr[] = {'\0','\0','\0','\0'};
+Observe que com as aspas bastam 3 caracteres (no caso, espaço), mas com chaves é necessário incluir o terminador '\0'!
+Então, mesmo indiretamente, o tamanho do array é definido.
+
+
+2) Inicialização e atribuição de variável string
+Diferentemente de variáveis simples, a seguinte instrução não é válida e causaria erro:
+nome = "Ana"; 
+
+A seguir, veremos as formas de atribuição a uma variável string, incluindo formas simples, mas mais trabalhosas, até formas mais seguras e 
+recomendadas
+
+arr[0] = 'caractere'...arr[n-1] = '\0'
+
+strcpy
+strncpy
+
+memcpy
+
+sprintf
+snprintf

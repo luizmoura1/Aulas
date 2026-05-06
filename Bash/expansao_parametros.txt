@@ -1,0 +1,15 @@
+Guia de Expansão de Parâmetros
+
+1) Isolamento: prefixo${var}sufixo
+
+2) Valor padrão: ${var:-valor_padrão}
+
+(Se var for nula ou vazia)
+
+3) Substituição: ${var/padrão/substituto}
+
+CUIDADO: Usar / antes do padrão para a primeira ocorrência.
+
+CUIDADO: Usar // antes do padrão para todas as ocorrências.
+
+4) Tamanho: ${#var}
