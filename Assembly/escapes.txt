@@ -1,0 +1,24 @@
+
+ASCII sequências de escape C-style (American Standard Code for Information Interchange https://www.ascii-code.com/)
+A barra invertida 'escapa' valor (em octal e/ou hexadecimal) e char para se referir a uma tecla:
+
+símbolo     tecla       valor                          char   significado               dado* / teclado / tela / ação
+null        ctrl @      0, 0q / 0o, 0x00 / 0h          0       null char                sim / não / invisível / terminar dados   
+
+etx         ctrl c      3, 3q / 3o, 0x03 / 3h                  end of text              não / sim / não / SIGINT interrompe e encerra (kill)
+eot         ctrl d      4, 4q / 4o, 0x04 / 4h                  end of transmission      não / sim / não / sys_read retorna 0 a eax (EOF)
+
+bel         ctrl g      7, 7q / 7o, 0x07 / 7h          a       bell, alarme             sim / não / comando / beep ou blink 
+bs          ctrl h      8, 10q / 10o, 0x08 / 8h        b       backspace                sim / sim / comando / voltar cursor uma posição 
+ht          ctrl i      9, 11q / 11o, 0x09 / 9h        t       tab, horizontal tab      sim / sim / comando / avançar cursor múltiplo de 8 posições
+lf          ctrl j      10,12q / 12o, 0x0a / 0ah       n       line feed, enter/return  sim / sim / comando / avançar cursor uma linha
+
+cr          ctrl m      13, 15q / 15o, 0x0d / 0dh      r       carriage return**, home  sim / sim / comando / voltar cursor ao início da linha
+
+sub         ctrl z      26, 32q / 32o, 0x1a / 1ah              substitute               não / sim / não / SIGTSTP pausa e suspende (wait)   
+esc         ctrl [      27, 33q / 33o, 0x1b / 1bh      e       escape                   sim / sim / comando / inicia sequência de escape ANSI***
+
+* No campo 'dado', o valor 'não' indica que o caractere não é uma informação de conteúdo (texto/valor), mas sim um sinal de controle ou comando do sistema (interrupção, fim de arquivo ou pausa).
+** no linux, acionar a tecla ENTER coloca no buffer apenas LF mas o efeito é retornar o carro e avançar uma linha (como no windows). 
+No windows, acionar a tecla ENTER coloca no buffer CR e LF.
+*** Atributo de cor e estilo colocado entre [ e m; a forma \e não funciona em Java, JS e Python! Use \033 ou \x1b.

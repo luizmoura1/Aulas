@@ -1,0 +1,35 @@
+; -------------------------------------------------------------------------
+; PADRÃO PARA MANIPULAÇÃO DE DADOS (STEP-BY-STEP)
+; -------------------------------------------------------------------------
+; TIPO: Define a largura (byte, word, dword)
+; TAMANHO: O valor em bytes do tipo (1, 2, 4)
+; ÍNDICE: A posição lógica do elemento (0, 1, 2... n)
+; OFFSET: O deslocamento real (índice * tamanho)
+;
+; REGRA DE ENDEREÇAMENTO: [endereço_base + offset]
+;
+; 1. Preenchimento:
+;    mov tipo [variavel + 0*tamanho], dado_0   ; Offset 0
+;    ...
+;    mov tipo [variavel + n*tamanho], dado_n   ; Offset final
+;
+; 2. Saída (Kernel):
+;    mov ecx, variavel                         ; Onde começa
+;    mov edx, (n + 1) * tamanho                ; Quantos bytes ler no total
+; -------------------------------------------------------------------------
+
+
+
+; para dados do mesmo tipo e portanto do mesmo tamanho
+    ; escrever n+1 elementos inclusive '\n'
+    ; para strings, tipo = byte e tamanho = 1
+    ; endereçamento: [endereço_base + offset]
+    ; offset = índice*tamanho
+    ; índice varia de 0 a n
+
+    ; mov tipo [variavel + 0*tamanho], dado_0      
+    ; ...
+    ; mov tipo [variavel + n*tamanho], dado_n
+    
+    ; mov ecx, variavel
+    ; mov edx, (n+1)*tamanho

@@ -8,9 +8,9 @@ STDOUT      equ 1
 STDIN       equ 0
 LF          equ 10
 
-msg1:       db  'Informe um nome: ', LF  ; 1a mensagem + line feed    ; db define byte
+msg1:       db  'Informe um nome: ', LF     ; 1a mensagem + line feed    ; db define byte
 msg1_len   equ   $ - msg1
-msg2:       db  LF, 'Nome informado: '  ; 1a mensagem + line feed 
+msg2:       db  LF, 'Nome informado: '      ; line feed + 2a mensagem  
 msg2_len   equ   $ - msg2
 
 section .bss
@@ -44,7 +44,7 @@ _start:
 ;escrita:
     mov eax, SYS_WRITE              ; escrita
     mov ebx, STDOUT                 ; arg0: fd: tela
-    mov ecx, msg2                 ; arg1: endereço
+    mov ecx, msg2                   ; arg1: endereço
     mov edx, msg2_len               ; arg2: número de bytes
     int SYSCALL_RQ                  ; chama kernel para executar escrita
     ;ret

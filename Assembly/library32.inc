@@ -1,10 +1,10 @@
 ; library32.inc - biblioteca de constantes (Linux x86 32-bit)
 
 ; Caracteres de controle (ASCII)
-LF  equ 10  ; line feed '\n'    0x0a    0ah
+LF  equ 10  ; line feed ; `\n` ; 0x0a ; 0ah ; 12o ; 12q ; 10
 
 ; Vetor de interrupção
-SYSCALL_RQ  equ 128 ; uso: int  SYSCALL_RQ  ; hexadecimal é mais comum: 0x80 ou 80h
+SYSCALL_RQ  equ 128 ; uso: int  SYSCALL_RQ  ; mais comum, pela ordem: 0x80 ; 80h ; 200o ; 200q ; 128
 
 ; Códigos de retorno ao SO (exit status):
 STATUS  equ 0   ; operação concluída com sucesso
