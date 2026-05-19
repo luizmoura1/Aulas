@@ -36,7 +36,7 @@ _start:
     call escrita
 
     mov ecx, variavel
-    mov edx, [bytes_read]       ; trocar eax por esi
+    mov edx, [bytes_read]       ; trocar eax por memória
     call escrita
 
     mov eax, SYS_EXIT

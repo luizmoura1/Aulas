@@ -14,6 +14,7 @@ literal_len    equ   $ - literal
 section .bss
 variavel: resb SIZE
 
+
 section .text
 global _start
 _start:
