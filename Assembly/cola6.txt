@@ -1,0 +1,27 @@
+CONTEÚDO DA PILHA
+
+argc         inteiro: contagem (número) de argumentos do shell         
+argv[0]      ponteiro: endereço da string com nome do programa
+argv[1]      ponteiro: endereço da string com argumento 1 do programa
+...
+argv[i]      ponteiro: endereço da string com argumento i do programa
+NULL         ponteiro: 0x00000000 ← fim da lista de argumentos do programa (argv)
+
+
+argc    = [ esp + 0 ]
+argv[0] = [ esp + 4 ]
+argv[1] = [ esp + 8 ]
+...
+argv[i] = [ esp + 4*(i+1) ]
+
+
+argc >= 1
+
+Número de argumentos passados pelo usuário:
+argc - 1
+
+Índices válidos:
+argv[0] ... argv[argc - 1]
+
+Sentinela (fim do vetor):
+argv[argc] == NULL

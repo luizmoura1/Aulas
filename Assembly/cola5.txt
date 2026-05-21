@@ -1,35 +1,31 @@
-; -------------------------------------------------------------------------
+;-------------------------------------------------------------------------
 ; PADRÃO PARA MANIPULAÇÃO DE DADOS (STEP-BY-STEP)
-; -------------------------------------------------------------------------
+;-------------------------------------------------------------------------
 ; TIPO: Define a largura (byte, word, dword)
 ; TAMANHO: O valor em bytes do tipo (1, 2, 4)
 ; ÍNDICE: A posição lógica do elemento (0, 1, 2... n)
-; OFFSET: O deslocamento real (índice * tamanho)
 ;
-; REGRA DE ENDEREÇAMENTO: [endereço_base + offset]
+; DESLOCAMENTO VARIÁVEL: índice * tamanho
+; DESLOCAMENTO FIXO (disp): constante somada ao endereço
+; DESLOCAMENTO TOTAL: (índice * tamanho) + disp
+;
+; REGRA GERAL DE ENDEREÇAMENTO:
+;    [base + (índice * tamanho) + disp]
+;
+; CASO MAIS SIMPLES (sem disp):
+;    [base + índice * tamanho]
 ;
 ; 1. Preenchimento:
-;    mov tipo [variavel + 0*tamanho], dado_0   ; Offset 0
+;    mov tipo [buffer + 0*tamanho + 0], dado_0
 ;    ...
-;    mov tipo [variavel + n*tamanho], dado_n   ; Offset final
+;    mov tipo [buffer + n*tamanho + 0], dado_n
 ;
-; 2. Saída (Kernel):
-;    mov ecx, variavel                         ; Onde começa
-;    mov edx, (n + 1) * tamanho                ; Quantos bytes ler no total
-; -------------------------------------------------------------------------
+; 2. Preenchimento com deslocamento fixo:
+;    mov tipo [buffer + índice*tamanho + disp], dado
+;    ; Ex: pular cabeçalho, alinhar, etc.
+;
+; 3. Saída (Kernel):
+;    mov ecx, buffer                         ; endereço base
+;    mov edx, (n + 1) * tamanho              ; total de bytes
 
-
-
-; para dados do mesmo tipo e portanto do mesmo tamanho
-    ; escrever n+1 elementos inclusive '\n'
-    ; para strings, tipo = byte e tamanho = 1
-    ; endereçamento: [endereço_base + offset]
-    ; offset = índice*tamanho
-    ; índice varia de 0 a n
-
-    ; mov tipo [variavel + 0*tamanho], dado_0      
-    ; ...
-    ; mov tipo [variavel + n*tamanho], dado_n
-    
-    ; mov ecx, variavel
-    ; mov edx, (n+1)*tamanho
+; ENDEREÇO = BASE + DESLOCAMENTO(S); TODO acesso à memória é uma soma de deslocamentos

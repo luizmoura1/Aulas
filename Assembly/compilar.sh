@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-nome=$1
-nasm -f elf32 "$nome.asm"
-ld -m elf_i386 "$nome.o" -o "_$nome"
-rm "$nome.o"
-./"_$nome"
+[ -z "$1" ] && exit 1
+nasm -f elf32 "$1.asm"
+ld -m elf_i386 "$1.o" -o "_aula"
+rm "$1.o"
+./"_aula" "${@:2}"
