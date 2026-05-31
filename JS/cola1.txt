@@ -20,3 +20,8 @@ function funcao_callback(param){
 
 rl.question('Digite um nome: ', funcao_callback)
 
+
+
+
+// node cola1.js
+
