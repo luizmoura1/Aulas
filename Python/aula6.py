@@ -1,27 +1,34 @@
-# PYTHON - 7 formas de se escrever Oi, mundo!
-SAUDACAO = "Oi"
-nome = "mundo"
+import sys
+K = "Oi, "
+n1 = None
 
-# 1) Concatenação com + (somente strings; aqui usado sem atribuição): expr1 + "sep" + ... + exprN + "end"
-print(SAUDACAO + ", " +  nome + "!")
+print("LITERAL, CONSTANTE e VARIAVEL")
 
-# 2) Uso dos argumentos nomeados sep e end: expr1, ..., exprN, sep="sep", end="end"
-print(SAUDACAO, nome, sep=", ", end="!\n")
+print("Literal classico helloworld: 'Oi, mundo!'")
 
-# 3) Estilo C (legado): "%s ... %s" % (expr1, ..., exprN))
-print("%s, %s!" % (SAUDACAO, nome))
+print("Valor da variavel antes da inicializacao: ")
+print(f"n1 = {n1}")      # print("n1 = ", n1)   f"{}"
+print(f"{K}{n1}")        # print(K, n1)
 
-# 4) format com placeholder posicional: "{} ... {}".format(expr1, ..., exprN)
-print("{}, {}!".format(SAUDACAO, nome))
+print("Atribuicoes em design-time")
+n1 = "Ana"
+print("Inicializacao (1a. atribuicao): ")
+print(f"n1 = {n1}")      
+print(f"{K}{n1}")        
 
-# 5) format com placeholder nomeado: "{a} ... {z}".format(a=expr1, ..., z=exprN)
-print("{a}, {z}!".format(z=nome, a=SAUDACAO))
+n1 = "Bela"
+print("Nova atribuicao: ")
+print(f"n1 = {n1}")      
+print(f"{K}{n1}")        
 
-# 6) f-strings (avaliam expressões inline):  f"{expr1} ... {exprN}"
-print(f"{SAUDACAO}, {nome}!")
+print("Atribuicao em invocation-time")          # python argv[0] argv[1]
+n1 = sys.argv[1] if len(sys.argv) > 1 else ""   # length : comprimento
+print("Entrada por linha de comando: ")
+print(f"n1 = {n1}")      
+print(f"{K}{n1}")        
 
-# 7) Template strings (substituição externa; sem avaliação de expressões no modelo)
-from string import Template
-t = Template("$a, $z!")
-print(t.substitute(a=SAUDACAO, z=nome))
-
+print("Atribuicao em runtime")      
+print("Entrada por interacao: ")
+n1 = input("Digite um nome: ")                   
+print(f"n1 = {n1}")      
+print(f"{K}{n1}")        

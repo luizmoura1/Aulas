@@ -1,0 +1,14 @@
+leitura		escrita			        observações
+getchar()	putchar()		        1 caractere, stdin/stdout — padrão C
+getc()		putc()			        1 caractere, qualquer stream — padrão C
+fgetc()		fputc()			        idêntico ao getc/putc na prática — padrão C
+
+getch()		putch()			        sem eco, sem RETURN — conio.h, Windows only
+
+gets()		puts()			        gets removido no C11 — inseguro (sem limite de buffer)
+fgets()		fputs()			        versão segura do gets/puts — padrão C
+gets_s()	puts_s()		        versão segura do C11 — nem sempre disponível
+
+scanf()		printf()		        formatado, stdin/stdout — padrão C
+sscanf()	sprintf()/snprintf()    formatado, de/para string — padrão C
+fscanf()	fprintf()		        formatado, qualquer stream — padrão C
