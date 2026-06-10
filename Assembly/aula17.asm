@@ -12,7 +12,8 @@ msg:       db  LF, 'Nome informado: '
 msg_len    equ   $ - msg
 
 section .bss
-variavel: resb SIZE
+variavel: resb SIZE                     ;12345 67890 abcde'\n'
+lixo:   resb 1
 
 section .text
 global _start
@@ -27,15 +28,28 @@ _start:
 
     mov ecx, variavel
     mov edx, SIZE
-    call leitura
-    push eax
+    call leitura                        ; kernel coloca o número de bytes lidos em eax
+    push eax                            ; preservar o número de bytes lidos na pilha
 
+    cmp byte [variavel + eax - 1], LF   ; compare    
+    je conteudo_ok                      ; jz
+
+limpar:
+    mov ecx, lixo
+    mov edx, 1
+    call leitura
+
+    cmp byte [lixo], LF
+    jne limpar
+    mov byte [variavel + SIZE -1], LF   ; jnz 
+
+conteudo_ok:
     mov ecx, msg
     mov edx, msg_len
     call escrita
 
     mov ecx, variavel
-    pop edx
+    pop edx                             ; trocar edx por pilha
     call escrita
 
     mov eax, SYS_EXIT
