@@ -13,7 +13,7 @@ echo -e "${YELLOW}Com operadores lógicos, onde ((condição)) é comando1: ((co
 
 echo
 echo -e "${YELLOW}Com operador ternário em contexto numérico: \$((condição ? y : z))${RESET}"
-echo "Retorno numérico: $(( x == N1 ? 1 : 0 ))" # Os valores poderiam ser quaisquer números, idealmente diferentes; não necessariamente 1 e 0
+echo "Retorno numérico: $(( x == N1 ? 0 : 1 ))" # Os valores poderiam ser quaisquer números, idealmente diferentes; não necessariamente 0 e 1
 
 echo
 echo -e "${YELLOW}Comparação conceitual:${RESET}"
