@@ -1,0 +1,8 @@
+# 1969: Ken Thompson (AT&T/Bell Labs) cria o Unix em Assembly para o minicomputador PDP-7.
+# 1972-73: Dennis Ritchie cria a linguagem C; o Unix é inteiramente reescrito em C, tornando-o portável.
+# Anos 70: A AT&T licencia o código-fonte do Unix para a Univ. de Berkeley, onde nasce o BSD.
+# Anos 90: A AT&T restringe as licenças e processa Berkeley; a comunidade reescreve o código livre de travas, gerando o FreeBSD, NetBSD e OpenBSD.
+# 1991: Linus Torvalds cria o Linux, um sistema independente que recria o funcionamento do Unix.
+# Hoje: macOS/iOS derivam do BSD; Android e a internet rodam em Linux; até o Windows o integra via WSL.
+# Ecossistema: O FreeBSD serve de base para sistemas desktop modernos e amigáveis, como o GhostBSD.
+# O Unix não morreu: ele é a fundação invisível que sustenta toda a tecnologia moderna.
