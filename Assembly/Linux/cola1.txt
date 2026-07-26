@@ -1,19 +1,37 @@
-Passos para montar e linkeditar o programa prog
+Passos para montar e linkeditar programas em Assembly (x86 / 32 bits)
 
-1 - Dialeto Intel (NASM, controle direto)
-nasm -f elf32 prog.asm                              ; assembler (https://www.nasm.us/docs/3.01/)
-ld -m elf_i386 prog.o -o prog                       ; linker    | -e entryPoint (default: _start)
+1 - Dialeto Intel (NASM, Controle Direto)   (https://www.nasm.us/docs/)
+nasm -f elf32 prog.asm                  ; assembler (gera prog.o automaticamente)
+ld -m elf_i386 prog.o -o prog           ; linker    | -e entryPoint (default: _start)
 
-2 - Dialeto AT&T (GAS)
-a) Controle direto (entryPoint: _start)
-as --32 prog.s -o prog.o                            ; assembler
-ld -m elf_i386 prog.o -o prog                       ; linker    | -e entryPoint (default: _start)
+2 - Dialeto AT&T (GAS - GNU Assembler)
+a) Controle Direto (entryPoint: _start)
+as --32 prog.s -o prog.o                ; assembler (-o obrigatório para não gerar a.out)
+ld -m elf_i386 prog.o -o prog           ; linker    | -e entryPoint (default: _start)
 
-b) Via driver C (entryPoint: main)
-gcc -m32 prog.s -o prog                             ; driver (GAS + linker + startup + libc)
+b) Via Driver C (entryPoint: main)
+gcc -m32 prog.s -o prog                 ; driver (GAS + linker + startup + libc)
 
-Para rodar, em qualquer caso:
-./prog
+----------------------------------------
+3 - Modularização (NASM)
 
-Para ver o valor do status de saída:
-echo $?
+a) Paradigma '%include' (Tempo de Montagem / Pré-processamento):
+# Montagem do fonte principal
+nasm -f elf32 _aulaX_main.asm           ; o pré-processador 'funde' o módulo no main
+
+# Ligação/Linkagem/Linkedição do objeto
+ld -m elf_i386 _aulaX_main.o -o _aulaX  ; linka o objeto ÚNICO gerado pelo NASM
+
+b) Paradigma 'call/ret' (Montagem Separada / Linkagem):
+# Montagem individual dos fontes
+nasm -f elf32 _aulaX_main.asm           ; montagem do principal (orquestrador)
+nasm -f elf32 _aulaX_mod.asm            ; montagem do módulo isoladamente
+
+# Ligação/Linkagem/Linkedição dos objetos
+ld -m elf_i386 _aulaX_main.o _aulaX_mod.o -o _aulaX ; linker 'costura' todos os objetos (.o)
+
+----------------------------------------
+4 - Execução e Verificação (Respeitando o nome exato definido no -o do ld)
+
+./_aulaX                                ; executa o binário gerado pelo ld
+echo $?                                 ; exibe o status de saída (retorno do SYS_EXIT)
