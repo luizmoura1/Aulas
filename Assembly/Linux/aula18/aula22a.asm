@@ -50,7 +50,7 @@ _start:
             mov     edx, k_LEN          ; 4
             call    escrita
 
-            mov     dword [var], `Ana ` ;Ana Liz'
+            mov     dword [var], `Ana ` ; 'Ana Liz'
             mov     word [var + 4], `Li` 
             mov     byte [var + 6], `z`
             mov     ecx, var
