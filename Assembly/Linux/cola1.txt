@@ -1,6 +1,6 @@
 Passos para montar e linkeditar programas em Assembly (x86 / 32 bits)
 
-1 - Dialeto Intel (NASM, Controle Direto)   (https://www.nasm.us/docs/)
+1 - Dialeto Intel (NASM, Controle Direto)    (https://www.nasm.us/docs/)
 nasm -f elf32 prog.asm                  ; assembler (gera prog.o automaticamente)
 ld -m elf_i386 prog.o -o prog           ; linker    | -e entryPoint (default: _start)
 
@@ -22,16 +22,34 @@ nasm -f elf32 _aulaX_main.asm           ; o pré-processador 'funde' o módulo n
 # Ligação/Linkagem/Linkedição do objeto
 ld -m elf_i386 _aulaX_main.o -o _aulaX  ; linka o objeto ÚNICO gerado pelo NASM
 
-b) Paradigma 'call/ret' (Montagem Separada / Linkagem):
+b) Paradigma 'call/ret' - Linkagem Estática (Compilação Separada):
 # Montagem individual dos fontes
-nasm -f elf32 _aulaX_main.asm           ; montagem do principal (orquestrador)
-nasm -f elf32 _aulaX_mod.asm            ; montagem do módulo isoladamente
+nasm -f elf32 app_main_estat.asm        ; montagem do principal (orquestrador)
+nasm -f elf32 lib_mod_estat.asm         ; montagem do módulo isoladamente
 
 # Ligação/Linkagem/Linkedição dos objetos
-ld -m elf_i386 _aulaX_main.o _aulaX_mod.o -o _aulaX ; linker 'costura' todos os objetos (.o)
+ld -m elf_i386 app_main_estat.o lib_mod_estat.o -o _app_estat ; 'costura' os objetos num único binário
+
+c) Paradigma 'call/ret' - Linkagem Dinâmica Local (.so):
+# 0. Reutilização do código 'call/ret' (copia os fontes da versão estática)
+cp app_main_estat.asm app_main_dinam.asm
+cp lib_mod_estat.asm  lib_mod_dinam.asm
+
+# 1. Montagem do módulo e criação da Biblioteca Compartilhada (.so)
+nasm -f elf32 lib_mod_dinam.asm
+ld -m elf_i386 -shared lib_mod_dinam.o -o libmod_dinam.so
+
+# 2. Montagem e Linkagem do programa principal indicando a biblioteca externa
+nasm -f elf32 app_main_dinam.asm
+ld -m elf_i386 app_main_dinam.o -L. -lmod_dinam -o _app_dinam
 
 ----------------------------------------
 4 - Execução e Verificação (Respeitando o nome exato definido no -o do ld)
 
-./_aulaX                                ; executa o binário gerado pelo ld
+# Execução padrão (Linkagem Estática ou programa único):
+./prog                                  ; ou ./_aulaX ou ./_app_estat
 echo $?                                 ; exibe o status de saída (retorno do SYS_EXIT)
+
+# Execução com Linkagem Dinâmica Local (informa ao Linux para buscar a .so na pasta atual):
+LD_LIBRARY_PATH=. ./_app_dinam
+echo $?
