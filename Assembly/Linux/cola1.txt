@@ -1,19 +1,27 @@
-Passos para montar e linkeditar programas em Assembly (x86 / 32 bits)
+===============================================================================
+ PASSOS PARA MONTAR E LINKEDITAR PROGRAMAS EM ASSEMBLY (x86 / 32 bits)
+ Integrated with ~/.local/bin and ~/.local/lib Architecture
+===============================================================================
 
-1 - Dialeto Intel (NASM, Controle Direto)    (https://www.nasm.us/docs/)
+1 - DIALETO INTEL (NASM, Controle Direto)    (https://www.nasm.us/docs/)
+-------------------------------------------------------------------------------
 nasm -f elf32 prog.asm                  ; assembler (gera prog.o automaticamente)
 ld -m elf_i386 prog.o -o prog           ; linker    | -e entryPoint (default: _start)
 
-2 - Dialeto AT&T (GAS - GNU Assembler)
-a) Controle Direto (entryPoint: _start)
-as --32 prog.s -o prog.o                ; assembler (-o obrigatório para não gerar a.out)
-ld -m elf_i386 prog.o -o prog           ; linker    | -e entryPoint (default: _start)
 
-b) Via Driver C (entryPoint: main)
-gcc -m32 prog.s -o prog                 ; driver (GAS + linker + startup + libc)
+2 - DIALETO AT&T (GAS - GNU Assembler)
+-------------------------------------------------------------------------------
+a) Controle Direto (entryPoint: _start):
+   as --32 prog.s -o prog.o             ; assembler (-o obrigatório para não gerar a.out)
+   ld -m elf_i386 prog.o -o prog        ; linker    | -e entryPoint (default: _start)
 
-----------------------------------------
-3 - Modularização (NASM)
+b) Via Driver C (entryPoint: main):
+   gcc -m32 prog.s -o prog              ; driver (GAS + linker + startup + libc)
+
+
+-------------------------------------------------------------------------------
+3 - MODULARIZAÇÃO (NASM)
+-------------------------------------------------------------------------------
 
 a) Paradigma '%include' (Tempo de Montagem / Pré-processamento):
 # Montagem do fonte principal
@@ -22,15 +30,17 @@ nasm -f elf32 _aulaX_main.asm           ; o pré-processador 'funde' o módulo n
 # Ligação/Linkagem/Linkedição do objeto
 ld -m elf_i386 _aulaX_main.o -o _aulaX  ; linka o objeto ÚNICO gerado pelo NASM
 
+
 b) Paradigma 'call/ret' - Linkagem Estática (Compilação Separada):
-# Montagem individual dos fontes
+# Montagem individual dos fontes na pasta do projeto
 nasm -f elf32 app_main_estat.asm        ; montagem do principal (orquestrador)
 nasm -f elf32 lib_mod_estat.asm         ; montagem do módulo isoladamente
 
 # Ligação/Linkagem/Linkedição dos objetos
-ld -m elf_i386 app_main_estat.o lib_mod_estat.o -o _app_estat ; 'costura' os objetos num único binário
+ld -m elf_i386 app_main_estat.o lib_mod_estat.o -o _app_estat ; 'costura' num único binário
 
-c) Paradigma 'call/ret' - Linkagem Dinâmica Local (.so):
+
+c) Paradigma 'call/ret' - Linkagem Dinâmica (.so):
 # 0. Reutilização do código 'call/ret' (copia os fontes da versão estática)
 cp app_main_estat.asm app_main_dinam.asm
 cp lib_mod_estat.asm  lib_mod_dinam.asm
@@ -39,17 +49,33 @@ cp lib_mod_estat.asm  lib_mod_dinam.asm
 nasm -f elf32 lib_mod_dinam.asm
 ld -m elf_i386 -shared lib_mod_dinam.o -o libmod_dinam.so
 
-# 2. Montagem e Linkagem do programa principal indicando a biblioteca externa
-nasm -f elf32 app_main_dinam.asm
-ld -m elf_i386 app_main_dinam.o -L. -lmod_dinam -o _app_dinam
+# 1b. Copia a biblioteca pronta para a pasta de bibliotecas do usuário (Opcional)
+cp libmod_dinam.so ~/.local/lib/
 
-----------------------------------------
-4 - Execução e Verificação (Respeitando o nome exato definido no -o do ld)
+# 2. Montagem e Linkagem do programa principal (Forma Explícita, mais didática)
+nasm -f elf32 app_main_dinam.asm
+ld -m elf_i386 app_main_dinam.o libmod_dinam.so -o _app_dinam
+
+
+-------------------------------------------------------------------------------
+4 - EXECUÇÃO, ORGANIZAÇÃO FINAL E VERIFICAÇÃO
+-------------------------------------------------------------------------------
 
 # Execução padrão (Linkagem Estática ou programa único):
 ./prog                                  ; ou ./_aulaX ou ./_app_estat
 echo $?                                 ; exibe o status de saída (retorno do SYS_EXIT)
 
-# Execução com Linkagem Dinâmica Local (informa ao Linux para buscar a .so na pasta atual):
+# Execução dinâmica (buscando a .so na pasta atual):
 LD_LIBRARY_PATH=. ./_app_dinam
 echo $?
+
+# Execução dinâmica (se a biblioteca já foi copiada para ~/.local/lib):
+./_app_dinam
+echo $?
+
+# Publicação do executável final para uso global do usuário:
+cp _app_dinam ~/.local/bin/             ; copia para o diretório de binários
+_app_dinam                              ; roda de QUALQUER pasta sem usar './'
+echo $?
+
+===============================================================================

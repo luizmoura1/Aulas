@@ -1,0 +1,52 @@
+===============================================================================
+       GUIA DE ORGANIZAÇÃO DO DESENVOLVEDOR LINUX (PARA O TIOZINHO E AFINS)
+===============================================================================
+
+1. PASSO ÚNICO DE PREPARAÇÃO (CRIAR AS PASTAS DO USUÁRIO)
+-------------------------------------------------------------------------------
+Execute o comando abaixo uma única vez no terminal. O parâmetro '-p' garante 
+que o comando crie as pastas se elas não existirem, e não dê erro se já existirem:
+
+    mkdir -p ~/.local/bin ~/.local/lib
+
+
+2. O MAPA DOS ARQUIVOS (ONDE GUARDA CADA COISA?)
+-------------------------------------------------------------------------------
+
+[ 📄 ARQUIVOS FONTE (.asm) ]
+- Onde ficam: Na pasta do seu projeto (ex: ~/Documentos/Aulas/Assembly/).
+- O que são: O código que você digita no editor.
+- Git: Devem ser salvos e versionados no repositório.
+
+[ ⚙️ ARQUIVOS OBJETO INTERMEDIÁRIOS (.o) ]
+- Onde ficam: Na própria pasta do projeto, ao lado do .asm.
+- O que são: Binários temporários gerados pelo NASM (Relocatable). 
+  Não rodam sozinhos e servem apenas para o linker (ld) juntar depois.
+- Git: Colocar no arquivo .gitignore.
+
+[ 🧩 BIBLIOTECAS COMPARTILHADAS (.so) ]
+- Onde ficam: 
+    a) Na própria pasta do projeto (para testes locais).
+    b) Preferencialmente em: ~/.local/lib
+- O que são: Módulos de código reutilizáveis (Shared Object / Dynamic). 
+  Colocando em ~/.local/lib, seus programas conseguem reutilizar a biblioteca.
+
+[ 🚀 EXECUTÁVEIS FINAIS (Sem extensão ou _executavel) ]
+- Onde ficam:
+    a) Na pasta do projeto (para testar usando: ./_executavel).
+    b) Preferencialmente em: ~/.local/bin (para programas prontos).
+- O que são: O programa final pronto para uso. Colocando em ~/.local/bin, 
+  você consegue rodar de qualquer pasta digitando Apenas o Nome do programa,
+  sem precisar colocar o './' na frente.
+
+
+3. RESUMO RÁPIDO PARA CONSULTA
+-------------------------------------------------------------------------------
+Extensão    | Onde Guardar?     | Como Usa / Roda?       | Função
+------------+-------------------+------------------------+---------------------
+.asm        | Pasta do Projeto  | nasm -f elf32 ...      | Código fonte
+.o          | Pasta do Projeto  | ld -m elf_i386 ...     | Objeto temporário
+.so         | ~/.local/lib      | Carregado via Linux    | Biblioteca (.so)
+Executável  | ~/.local/bin      | nome_do_programa       | Programa pronto
+
+===============================================================================
