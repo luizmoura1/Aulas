@@ -5,7 +5,7 @@
 
 1 - DIALETO INTEL (NASM, Controle Direto)    (https://www.nasm.us/docs/)
 -------------------------------------------------------------------------------
-nasm -f elf32 prog.asm                  ; assembler (gera prog.o automaticamente)
+nasm -f elf32 prog.asm                 ; assembler (gera prog.o automaticamente)
 ld -m elf_i386 prog.o -o prog           ; linker    | -e entryPoint (default: _start)
 
 
@@ -41,9 +41,9 @@ ld -m elf_i386 app_main_estat.o lib_mod_estat.o -o _app_estat ; 'costura' num ú
 
 
 c) Paradigma 'call/ret' - Linkagem Dinâmica (.so):
-# 0. Reutilização do código 'call/ret' (copia os fontes da versão estática)
-cp app_main_estat.asm app_main_dinam.asm
-cp lib_mod_estat.asm  lib_mod_dinam.asm
+# 0. Ajuste no fonte da biblioteca (lib_mod_dinam.asm):
+#    Exportar o rótulo definindo seu tipo como função:
+#    global nome_da_funcao:function
 
 # 1. Montagem do módulo e criação da Biblioteca Compartilhada (.so)
 nasm -f elf32 lib_mod_dinam.asm
@@ -52,9 +52,9 @@ ld -m elf_i386 -shared lib_mod_dinam.o -o libmod_dinam.so
 # 1b. Copia a biblioteca pronta para a pasta de bibliotecas do usuário (Opcional)
 cp libmod_dinam.so ~/.local/lib/
 
-# 2. Montagem e Linkagem do programa principal (Forma Explícita, mais didática)
+# 2. Montagem e Linkagem do programa principal (Definindo o interpretador 32-bit)
 nasm -f elf32 app_main_dinam.asm
-ld -m elf_i386 app_main_dinam.o libmod_dinam.so -o _app_dinam
+ld -m elf_i386 -dynamic-linker /lib/ld-linux.so.2 app_main_dinam.o libmod_dinam.so -o _app_dinam
 
 
 -------------------------------------------------------------------------------
