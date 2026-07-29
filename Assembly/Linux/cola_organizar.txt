@@ -9,11 +9,8 @@
 
 mkdir -p ~/.local/bin ~/.local/lib
 
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-echo 'export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"' >> ~/.bashrc
-
-# Aplica as alterações no terminal atual imediatamente:
-source ~/.bashrc
+grep -qF 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc || echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+grep -qF 'export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"' ~/.bashrc || echo 'export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"' >> ~/.bashrc
 
 
 2. SUPORTE A 32-BITS (Executar uma única vez em sistemas 64-bit)
@@ -21,8 +18,12 @@ source ~/.bashrc
 # Se o seu Linux for 64-bit (Debian/Ubuntu/WSL) e você for compilar em 32-bit (x86),
 # instale o suporte às bibliotecas de 32 bits:
 
-sudo dpkg --add-architecture i386 && sudo apt update && sudo apt install -y libc6:i386
+sudo dpkg --add-architecture i386
+sudo apt update
+sudo apt install -y libc6:i386
 
+# Aplica as alterações no terminal atual imediatamente:
+source ~/.bashrc
 
 3. O MAPA DOS ARQUIVOS (ONDE GUARDA CADA COISA?)
 -------------------------------------------------------------------------------
