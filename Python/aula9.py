@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# Programa: Manipulacao de Números - Aula 9  (Python)
+# Ambiente: Lubuntu e/ou Windows WSL:Debian / vscode
 import sys, random
 INVERT = "\x1b[1;7m"
 RESET = "\x1b[0m"
@@ -11,10 +14,10 @@ READ = iter(DATA)
 
 print(f"{GREEN}LITERAL, CONSTANTE e VARIAVEL{RESET}")
 
-print(f"\nLiteral numerico magico:\t{INVERT}1089{RESET}")
+print(f"\nLiteral numerico magico:\t{INVERT}1089{RESET}")   # 142857
 
 print("\nValor da variavel antes da inicializacao: ")
-print(f"n1 = {n1}")
+print(f"n1 = {n1}") # quando houver variável é melhor usar f-string do que print("n1 = ", n1)
 
 print(f"\n{YELLOW}Atribuicoes em design-time{RESET}")
 n1 = 3
@@ -50,4 +53,6 @@ x = input("Adivinhe o valor da constante K (1-9): ")
 palpite = int(x) if x.isdigit() else 0                   
 print(f"Acertou! " if palpite == K else "Quase! ", end=""); print(f"Era {K}.");
 
-
+# equivalente em curto-circuito:
+# palpite == K and print(f"Acertou! Era {K}.")
+# palpite == K or print(f"Quase! Era {K}.")
