@@ -2,6 +2,17 @@
        GUIA DE ORGANIZAÇÃO DO DESENVOLVEDOR LINUX (PARA O TIOZINHO E AFINS)
 ===============================================================================
 
+0. PREPARAÇÃO DO AMBIENTE (Executar uma única vez no .bashrc)
+-------------------------------------------------------------------------------
+# Adiciona as pastas de binários e bibliotecas do usuário ao caminho do sistema.
+# Abra o arquivo ~/.bashrc e adicione estas duas linhas ao final:
+
+export PATH="$HOME/.local/bin:$PATH"
+export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
+
+# Para aplicar as alterações imediatamente no terminal atual, rode:
+source ~/.bashrc
+
 1. PASSO ÚNICO DE PREPARAÇÃO (CRIAR AS PASTAS DO USUÁRIO)
 -------------------------------------------------------------------------------
 Execute o comando abaixo uma única vez no terminal. O parâmetro '-p' garante 
