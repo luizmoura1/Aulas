@@ -2,28 +2,26 @@
        GUIA DE ORGANIZAÇÃO DO DESENVOLVEDOR LINUX (PARA O TIOZINHO E AFINS)
 ===============================================================================
 
-1. PASSO ÚNICO DE PREPARAÇÃO (CRIAR AS PASTAS DO USUÁRIO)
+1. PASSO ÚNICO DE PREPARAÇÃO (CRIAR PASTAS E CONFIGURAR O AMBIENTE)
 -------------------------------------------------------------------------------
-Execute o comando abaixo uma única vez no terminal para garantir que a estrutura
-de pastas locais exista no seu usuário:
+# Execute este bloco no terminal UMA ÚNICA VEZ para criar as pastas e gravar 
+# os caminhos diretamente no seu ~/.bashrc sem precisar de editor de texto:
 
-    mkdir -p ~/.local/bin ~/.local/lib
+mkdir -p ~/.local/bin ~/.local/lib
 
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+echo 'export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"' >> ~/.bashrc
 
-2. CONFIGURAÇÃO DO AMBIENTE (Executar uma única vez)
--------------------------------------------------------------------------------
-# A) Se o seu Linux for 64-bit (Debian/Ubuntu/WSL) e você for compilar em 32-bit (x86),
-#    instale o suporte a bibliotecas de 32 bits para o sistema não dar erro ao executar:
-sudo dpkg --add-architecture i386 && sudo apt update && sudo apt install -y libc6:i386
-
-# B) Adicione as pastas de binários e bibliotecas do usuário ao caminho do sistema.
-#    Abra o arquivo ~/.bashrc e adicione estas duas linhas ao final:
-
-export PATH="$HOME/.local/bin:$PATH"
-export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
-
-# C) Para aplicar as alterações de caminho imediatamente no terminal atual, rode:
+# Aplica as alterações no terminal atual imediatamente:
 source ~/.bashrc
+
+
+2. SUPORTE A 32-BITS (Executar uma única vez em sistemas 64-bit)
+-------------------------------------------------------------------------------
+# Se o seu Linux for 64-bit (Debian/Ubuntu/WSL) e você for compilar em 32-bit (x86),
+# instale o suporte às bibliotecas de 32 bits:
+
+sudo dpkg --add-architecture i386 && sudo apt update && sudo apt install -y libc6:i386
 
 
 3. O MAPA DOS ARQUIVOS (ONDE GUARDA CADA COISA?)

@@ -49,9 +49,6 @@ c) Paradigma 'call/ret' - Linkagem Dinâmica (.so):
 nasm -f elf32 lib_mod_dinam.asm
 ld -m elf_i386 -shared lib_mod_dinam.o -o libmod_dinam.so
 
-# 1b. Copia a biblioteca pronta para a pasta de bibliotecas do usuário (Opcional)
-cp libmod_dinam.so ~/.local/lib/
-
 # 2. Montagem e Linkagem do programa principal (Definindo o interpretador 32-bit)
 nasm -f elf32 app_main_dinam.asm
 ld -m elf_i386 -dynamic-linker /lib/ld-linux.so.2 app_main_dinam.o libmod_dinam.so -o _app_dinam
@@ -61,21 +58,21 @@ ld -m elf_i386 -dynamic-linker /lib/ld-linux.so.2 app_main_dinam.o libmod_dinam.
 4 - EXECUÇÃO, ORGANIZAÇÃO FINAL E VERIFICAÇÃO
 -------------------------------------------------------------------------------
 
-# Execução padrão (Linkagem Estática ou programa único):
+# Execução padrão (Linkagem Estática ou programa único na pasta do projeto):
 ./prog                                  ; ou ./_aulaX ou ./_app_estat
 echo $?                                 ; exibe o status de saída (retorno do SYS_EXIT)
 
-# Execução dinâmica (buscando a .so na pasta atual):
+# Execução dinâmica local (buscando a .so na pasta atual):
 LD_LIBRARY_PATH=. ./_app_dinam
 echo $?
 
-# Execução dinâmica (se a biblioteca já foi copiada para ~/.local/lib):
-./_app_dinam
-echo $?
+# PUBLICAÇÃO COMPLETA NO SISTEMA (Para rodar de qualquer pasta):
+# É OBRIGATÓRIO copiar AMBOS (a biblioteca .so E o executável):
+cp libmod_dinam.so ~/.local/lib/        ; publica a biblioteca
+cp _app_dinam ~/.local/bin/             ; publica o executável
 
-# Publicação do executável final para uso global do usuário:
-cp _app_dinam ~/.local/bin/             ; copia para o diretório de binários
-_app_dinam                              ; roda de QUALQUER pasta sem usar './'
+# Teste de execução global (de qualquer diretório, sem './'):
+_app_dinam                              
 echo $?
 
 ===============================================================================
