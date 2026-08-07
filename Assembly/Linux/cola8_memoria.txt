@@ -1,0 +1,36 @@
+ENDEREÇOS ALTOS (0xFFFFFFFF)
+  +---------------------------------------+
+  | ESPAÇO DO KERNEL (1 GB)               | <-- Reservado ao Sistema Operacional (Endereços 0xC0000000 a 0xFFFFFFFF)
+  +---------------------------------------+ 0xC0000000 base da pilha do processo
+  | PILHA (STACK)                         | <-- • ATRIBUIÇÃO: Tempo de Invocação (Argumentos/Ambiente via Kernel)
+  | Strings de ambiente e argumentos      |     • PERMISSÃO: Leitura e Escrita (R/W)
+  | envp[...]                             |     • ALOCAÇÃO:  Dinâmica Automática (Gerenciada via ESP)
+  | [esp + n]   = NULL (fim do argv) |    |
+  | [esp + ...] = argv[...]          v    |
+  | [esp + 8]   = argv[1]                 | 
+  | [esp + 4]   = argv[0]                 | 
+  | [esp + 0]   = argc                    | topo da pilha atual (mecânica Last-In, First-Out)
+  | (variáveis locais surgem aqui abaixo) |
+  |                                  ^    |<-- Espaço dinâmico (livre para crescimento) compartilhado (Stack vs Heap)
+  |                                  |    |
+  | MONTE (HEAP)                          | <-- • ATRIBUIÇÃO: Tempo de Execução (Buffers/Estruturas via Programa)
+  | (sys_brk, sys_mmap, buffers dinâmicos)|     • PERMISSÃO: Leitura e Escrita (R/W)
+  |                                       |     • ALOCAÇÃO:  Dinâmica Manual (Solicitada via sys_brk)
+  +---------------------------------------+ program break: fronteira móvel (ponto de partida que pode expandir para cima)
+  | .bss (Block Started by Symbol)        | <-- • ATRIBUIÇÃO: Tempo de Execução (Buffers / Leitura de dados do usuário)
+  | (Dados NÃO Inicializados - Globais)   |     • PERMISSÃO: Leitura e Escrita (R/W)
+  |                                       |     • ALOCAÇÃO:  Estática (Tamanho fixo definido na montagem/linkedição)
+  +---------------------------------------+
+  | .data                                 | <-- • ATRIBUIÇÃO: Tempo de Projeto (Variáveis alteráveis com valor inicial)
+  | (Dados Inicializados - Globais)       |     • PERMISSÃO: Leitura e Escrita (R/W)
+  |                                       |     • ALOCAÇÃO:  Estática (Tamanho fixo definido na montagem/linkedição)
+  +---------------------------------------+
+  | .rodata (Read-Only Data)              | <-- • ATRIBUIÇÃO: Tempo de Projeto (Constantes e literais inicializados)
+  | (Dados Inicializados - Globais)       |     • PERMISSÃO: Apenas Leitura (R) — Dispara SegFault se tentar escrever
+  |                                       |     • ALOCAÇÃO:  Estática (Tamanho fixo definido na montagem/linkedição)
+  +---------------------------------------+
+  | .text                                 | <-- • ATRIBUIÇÃO: Tempo de Projeto (Instruções de máquina / Código)
+  | (Código Executável)                   |     • PERMISSÃO: Leitura e Execução (R/X)
+  |                                       |     • ALOCAÇÃO:  Estática (Tamanho fixo definido na montagem/linkedição)
+  +---------------------------------------+ _start: ponto de entrada da execução
+  ENDEREÇOS BAIXOS (0x08048000 / 0x08049000)
