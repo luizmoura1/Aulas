@@ -20,6 +20,7 @@ int main(){
     printf("Digite uma letra: ");
     l1 = getchar();
     while(getchar() != '\n');
+    printf("\nl1 = %d\n", l1);
 
     printf(GREEN "\nOPERACOES RELACIONAIS\n" RESET);
     printf("l1 == K \t%d\n", l1 == K);
@@ -30,9 +31,9 @@ int main(){
     printf("l1 <= K \t%d\n", l1 <= K);
 
     printf(GREEN "\nD E S A F I O\n" RESET);
-    printf("Adivinhe a vogal de K (A...u): ");
+    printf("Adivinhe a vogal K (A...u): ");
     palpite = getchar();
-    printf("%s Era %c.\n", (palpite == K) ? "Acertou!" : "Quase!", K);
+    printf("\n%s Era %c.\n", (palpite == K) ? "Acertou!" : "Quase!", K);
 
     return 0;
 }
