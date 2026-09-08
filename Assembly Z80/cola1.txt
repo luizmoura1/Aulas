@@ -1,0 +1,35 @@
+====================================================================
+      GUIA DE EQUIVALÊNCIA: Z80 (8-bit)  vs  x86_32 (Linux)
+====================================================================
+
+1. REGISTRADORES E SEUS PAPEIS (Linux sys_write vs. TK85)
+--------------------------------------------------------------------
+Z80 / TK85   x86_32 (Linux)  Função / Papel na Prática
+--------------------------------------------------------------------
+A          | EAX (buffer)  | ACUMULADOR / DADO DE SAÍDA
+           |               | - Guarda o caractere para o RST $10.
+           |               | - No Linux, EAX indica a syscall e o byte.
+           |               |
+BC         | EAX (retorno) | RETORNO DE FUNÇÃO / CONTADOR
+           |               | - O PRINT USR lê o valor que sobrou em BC.
+           |               | - No Linux, EAX recebe o retorno da int 0x80.
+           |               |
+HL         | ECX           | PONTEIRO DE MEMÓRIA (Buffer Address)
+           |               | - Aponta para o início da string na RAM.
+           |               | - Z80: LD A, (HL)  <-->  x86: MOV AL, [ECX]
+           |               |
+DE         | EDX           | DADOS DE SUPORTE / TAMANHO
+           |               | - Guarda dados numéricos auxiliares.
+           |               | - No Linux, EDX guarda a quantidade de bytes.
+
+
+2. INSTRUÇÕES E "SYSCALLS"
+--------------------------------------------------------------------
+Z80 / TK85                  x86_32 / Linux       Descrição
+--------------------------------------------------------------------
+RST $10 (Opcode $D7)      | INT 0x80 / SYSCALL | Executa a subrotina da ROM
+                          |                    | para imprimir o byte de A.
+                          |                    |
+RET (Opcode $C9)          | RET                | Retorna ao BASIC (TK85) ou
+                          |                    | encerra subrotina.
+====================================================================

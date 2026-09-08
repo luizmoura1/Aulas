@@ -1,0 +1,21 @@
+
+
+TAXONOMIA CONSOLIDADA DE EXPRESSÕES ATÔMICAS (exp)
+
+1) Dado ou Operando  estático/passivo em memória
+   • 7               Literal numérico / constante / immediate
+   • "hello"         Literal de texto / string / constante / immediate
+   • A               Variável / Identificador de conteúdo em memória
+
+2) Instruções como Operações de Hardware/ALU (sem resolução de rótulo/endereço) em que argumentos são dados/operandos
+   • A = 7           Atributiva / resultado: dado atribuído (modificação de estado)  === MOV [A], 7 ou MOV reg,7 
+   • A + 7           Aritmética / resultado: novo número (soma com transporte)  === ADD [A], 7 ou ADD reg,7
+   • A >= 7          Relacional / resultado: booleano (subtração descartada) === CMP [A], 7 ou CMP reg,7
+   • A AND 7         Lógica Bitwise / resultado: novo número (cruzamento de bits sem carry) === AND [A], 7 ou AND reg,7
+
+3) Instruções como Operações de Fluxo (com resolução de rótulo/endereço); operador em formato textual
+   • BREAK           Desvio/interrupção incondicional direta === CALL BREAK()
+   • GOTO 200        Desvio incondicional direto === JMP 200
+   • GOSUB 100       Desvio com empilhamento de retorno === CALL 100
+   • PRINTF(A, 7)    Chamada de rotina do sistema via endereço/vetor de interrupção === CALL PRINTF(A,7)
+   • SUB1(A, 7)      Chamada de rotina do usuário com ou sem CALL/GOSUB === CALL SUB1(A, 7)

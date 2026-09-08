@@ -1,0 +1,35 @@
+
+COMPARATIVO DOS WRAPPERS DE AVALIAÇÃO (Modelo Teórico vs. Implementações Reais)
+
+Modelo/Ambiente  Wrapper                    Retorno / Regra de Avaliação
+teórico          [exp]                      1:sucesso/verdadeiro | 0:falha/falso (álgebra de Boole e ALU)
+
+Bash (POSIX)     [ exp ] / test exp         (1-255):falha/falso | 0:sucesso/verdadeiro ($? e sys_exit)
+
+Bash avançado    [[exp]]                    (1-255):falha/falso | 0:sucesso/verdadeiro (suporta regex e && / || internos)
+
+Bash aritmético  ((exp))                    0:sucesso/verdadeiro se resultado !=0 | 1:falha/falso se resultado ==0  (mecânica do C)
+
+Bash ternário    ((exp ? val1 : val2))      valor (número, variavel numérica ou atribuição numérica) conforme verdadeiro ou falso
+                 [ exp ] && ... || ...      controle de fluxo (funciona como estrutura condicional somente se expressão após && retornar sucesso!)    
+
+Linguagens dependentes de estruturas de controle de fluxo (exp é condição de desvio):
+
+C                if (exp) {...} else {...}  !=0:verdadeiro | 0:falso
+                 while (exp) {...} 
+                 do {...} while (exp)
+                 for (;exp;) {...}
+                 (exp) ? ... : ...
+
+BASIC*           IF exp THEN ... ELSE ...   !=0 ou -1 ou 1:verdadeiro | 0:falso
+                 WHILE exp ... WEND
+                 DO WHILE exp ... LOOP   
+                 DO UNTIL exp ... LOOP
+                 DO ... LOOP WHILE exp
+                 DO ... LOOP UNTIL exp                
+                 (para FOR, a condição de desvio é: variável = valor_mínimo TO valor_máximo)
+                 IF(exp, ..., ... )         atenção: somente como operando
+                 IIF(exp, ..., ... )        atenção: somente como operando   
+
+* depende do dialeto
+

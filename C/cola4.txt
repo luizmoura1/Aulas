@@ -1,0 +1,43 @@
+[ exp |op exp| ] |op [ exp |op exp| ]|
+
+
+linguagem   lógica                  booleana                mixto
+            avalia instrução?       avalia dado
+            controle de fluxo       
+            estrutural/aninhada?    
+Bash        
+            [e]                     [e -a e]
+                                    [e -o e]
+
+
+Grupo 1: Conjunção Simples (AND)
+1. [e] && [e]                       (Filtro Sequencial: Executa o segundo bloco APENAS SE o primeiro for Verdadeiro)
+
+Grupo 2: Disjunção Simples (OR)
+2. [e] || [e]                       (Plano de Contingência: Executa o segundo bloco APENAS SE o primeiro for Falso)
+
+
+Grupo A: Puramente && (Conjunção)
+1. ([e] && [e]) && [e]              (Padrão de todas as linguagens por associatividade à esquerda)
+2. [e] && ([e] && [e])              (Avaliação forçada pela direita)
+
+Grupo B: Puramente || (Disjunção)
+7. ([e] || [e]) || [e]              (Padrão de todas as linguagens por associatividade à esquerda)
+8. [e] || ([e] || [e])              (Avaliação forçada pela direita)
+
+Grupo C: Mistos (Conjunção + Disjunção)
+3. ([e] && [e]) || [e]              (Mistos: Resolve o && primeiro à esquerda)
+4. [e] && ([e] || [e])              (Filtro Obrigatório: Resolve o || interno primeiro)
+5. ([e] || [e]) && [e]              (Resolve o || à esquerda, exige o último &&)
+6. [e] || ([e] && [e])              (Entrada direta ou dupla de validação)
+
+
+
+C           if(e){               if(e && e){...}
+                if(e){..}
+            }
+
+BASIC       IF e THEN             IF e AND e THEN ...
+                IF e THEN ...
+                END IF
+            END IF

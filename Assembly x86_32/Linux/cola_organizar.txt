@@ -1,0 +1,67 @@
+===============================================================================
+       GUIA DE ORGANIZAÇÃO DO DESENVOLVEDOR LINUX (PARA O TIOZINHO E AFINS)
+===============================================================================
+
+1. PASSO ÚNICO DE PREPARAÇÃO (CRIAR PASTAS E CONFIGURAR O AMBIENTE)
+-------------------------------------------------------------------------------
+# Execute este bloco no terminal UMA ÚNICA VEZ para criar as pastas e gravar 
+# os caminhos diretamente no seu ~/.bashrc sem precisar de editor de texto:
+
+mkdir -p ~/.local/bin ~/.local/lib
+
+grep -qF 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc || echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+grep -qF 'export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"' ~/.bashrc || echo 'export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"' >> ~/.bashrc
+
+
+2. SUPORTE A 32-BITS (Executar uma única vez em sistemas 64-bit)
+-------------------------------------------------------------------------------
+# Se o seu Linux for 64-bit (Debian/Ubuntu/WSL) e você for compilar em 32-bit (x86),
+# instale o suporte às bibliotecas de 32 bits:
+
+sudo dpkg --add-architecture i386
+sudo apt update
+sudo apt install -y libc6:i386
+
+# Aplica as alterações no terminal atual imediatamente:
+source ~/.bashrc
+
+3. O MAPA DOS ARQUIVOS (ONDE GUARDA CADA COISA?)
+-------------------------------------------------------------------------------
+
+[ 📄 ARQUIVOS FONTE (.asm) ]
+- Onde ficam: Na pasta do seu projeto (ex: ~/Documentos/Aulas/Assembly/).
+- O que são: O código que você digita no editor.
+- Git: Devem ser salvos e versionados no repositório.
+
+[ ⚙️ ARQUIVOS OBJETO INTERMEDIÁRIOS (.o) ]
+- Onde ficam: Na própria pasta do projeto, ao lado do .asm.
+- O que são: Binários temporários gerados pelo NASM (Relocatable). 
+  Não rodam sozinhos e servem apenas para o linker (ld) juntar depois.
+- Git: Colocar no arquivo .gitignore.
+
+[ 🧩 BIBLIOTECAS COMPARTILHADAS (.so) ]
+- Onde ficam: 
+    a) Na própria pasta do projeto (para testes locais).
+    b) Preferencialmente em: ~/.local/lib
+- O que são: Módulos de código reutilizáveis (Shared Object / Dynamic). 
+  Colocando em ~/.local/lib, seus programas conseguem reutilizar a biblioteca.
+
+[ 🚀 EXECUTÁVEIS FINAIS (Sem extensão ou _executavel) ]
+- Onde ficam:
+    a) Na pasta do projeto (para testar usando: ./_executavel).
+    b) Preferencialmente em: ~/.local/bin (para programas prontos).
+- O que são: O programa final pronto para uso. Colocando em ~/.local/bin, 
+  você consegue rodar de qualquer pasta digitando Apenas o Nome do programa,
+  sem precisar colocar o './' na frente.
+
+
+4. RESUMO RÁPIDO PARA CONSULTA
+-------------------------------------------------------------------------------
+Extensão    | Onde Guardar?     | Como Usa / Roda?       | Função
+------------+-------------------+------------------------+---------------------
+.asm        | Pasta do Projeto  | nasm -f elf32 ...      | Código fonte
+.o          | Pasta do Projeto  | ld -m elf_i386 ...     | Objeto temporário
+.so         | ~/.local/lib      | Carregado via Linux    | Biblioteca (.so)
+Executável  | ~/.local/bin      | nome_do_programa       | Programa pronto
+
+===============================================================================

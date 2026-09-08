@@ -1,0 +1,56 @@
+====================================================================
+      GUIA DE EQUIVALÊNCIA: Z80 (8-bit)  vs  x86 (32-bit)
+====================================================================
+
+1. REGISTRADORES DE DADOS (8-bit)
+--------------------------------------------------------------------
+Z80           x86_32      Função / Papel Principal
+--------------------------------------------------------------------
+A           | AL        | ACUMULADOR PRINCIPAL
+            |           | - Passagem de parâmetros para ROM/Syscalls.
+            |           | - Único que faz operações lógicas (AND/OR/XOR)
+            |           |   e aritmética com a ULA de forma direta.
+            |           |
+B           | CL        | CONTADOR DE LOOPS
+            |           | - Usado como contador decremental no Z80.
+            |           |   A instrução 'DJNZ' equivale ao 'LOOP' (usa B).
+            |           |
+C, D, E     | BL, DL... | REGISTRADORES GERAIS (Rascunho/Dados de 8 bits)
+
+
+2. REGISTRADORES DE ENDEREÇAMENTO / PONTEIROS (16-bit vs 32-bit)
+--------------------------------------------------------------------
+Z80 (16-bit)  x86_32      Função / Papel Principal
+--------------------------------------------------------------------
+HL          | ESI / EDI | PONTEIRO DE MEMÓRIA PRINCIPAL (Data Pointer)
+            |           | - É o 'H'igh/'L'ow acumulado como 16 bits.
+            |           | - Usado para endereçamento indireto:
+            |           |   Z80: LD A, (HL)  <-->  x86: MOV AL, [ESI]
+            |           |
+BC          | ECX       | RETORNO DO BASIC / CONTADOR DUPLO
+            |           | - No TK85/ZX81, o valor numérico gravado em BC
+            |           |   é o retornado ao BASIC após um 'RAND USR'.
+            |           |
+DE          | EBX / EDX | PONTEIRO SECUNDÁRIO / DESTINO
+            |           | - Usado junto com HL em cópias de blocos.
+            |           |
+SP          | ESP       | STACK POINTER (Ponteiro de Pilha - 16 bits)
+PC          | EIP       | PROGRAM COUNTER (Ponteiro de Instrução)
+
+
+3. INSTRUÇÕES E SYSCALLS
+--------------------------------------------------------------------
+Z80 / TK85                 x86_32 / Linux       Descrição
+--------------------------------------------------------------------
+RST $10 (Opcode $D7)     | INT 0x80 / SYSCALL | Executa a "syscall" da ROM
+                         |                    | (imprime o caractere em A).
+                         |                    |
+LD A, (HL)               | MOV AL, [ESI]      | Lê o byte da memória
+                         |                    | onde o ponteiro aponta.
+                         |                    |
+INC HL                   | INC ESI            | Avança o ponteiro para o
+                         |                    | próximo byte/caractere.
+                         |                    |
+RET (Opcode $C9)         | RET                | Sai da subrotina e retorna
+                         |                    | ao chamador (BASIC no Z80).
+====================================================================

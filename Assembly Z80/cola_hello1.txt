@@ -1,0 +1,31 @@
+; "OI, MUNDO\n" em Assembly Z80 (TK85 / ZX81)
+; Código contínuo de 22 bytes para carregar no endereço $7530 (30000)
+; Compilação via Pasmo: pasmo nome_do_fonte.asm nome_do_executável.bin
+
+    ORG $7530		
+; section .text  (código: rótulos, instruções, operandos)
+; Start:                ; rótulo opcional, redundante porque já definido na diretiva ORG
+    LD HL, String       ; 21 3B 75 -> HL aponta para o início da String: $753B (30011)
+Loop:
+    LD A, (HL)          ; 7E       -> Pega o caractere atual da memória
+    CP $FF              ; FE FF    -> Compara com o marcador de FIM ($FF)
+    RET Z               ; C8       -> Retorna ao BASIC se for igual a $FF
+
+    RST $10             ; D7       -> Imprime o caractere que está em A
+    INC HL              ; 23       -> Avança o ponteiro HL
+    JR Loop             ; 18 F8    -> Salta de volta para LD A, (HL)
+
+; section .data (dados inicializados / área ideal para sub-rotinas chamadas via CALL)
+String:
+    DEFB $34, $2E, $1A, $00, $32, $3A, $33, $29, $34, $76, $FF
+;          O    I    ,  SPC    M    U    N    D    O   \n  FIM
+
+;   END / END Start  	; opcional / assembler ignora as linhas seguintes
+
+; SEQUÊNCIA HEXA CONTÍNUA PARA O HEXLOADER (22 BYTES):
+; 21 3B 75 7E FE FF C8 D7 23 18 F8 34 2E 1A 00 32 3A 33 29 34 76 FF
+; EXECUÇÃO:
+; no prompt: RAND USR 30000 ou LET A = USR 30000
+; em um programa BASIC: mesmos comandos, mas precedidos por um número de linha
+; se quiser mostrar o valor de retorno, use PRINT USR 30000, ou PRINT A (se precedido 
+; por LET A = USR 30000)
