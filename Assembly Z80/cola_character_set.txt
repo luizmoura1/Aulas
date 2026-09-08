@@ -1,11 +1,13 @@
-   TK85 / ZX81 (NEW ROM) - TABELA DE CARACTERES (HEXADECIMAL)
+   TK85 / ZX81 (NEW ROM) - TABELA DE CARACTERES (character map/set)
 
 Códigos hexadecimais das teclas: linha coluna
       0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F
-0     spc                                         "   £   $   :   ?
+0     SPC                                         "   £   $   :   ?
 1     (   )   >   <   =   +   -   *   /   ;   ,   .   0   1   2   3
 2     4   5   6   7   8   9   A   B   C   D   E   F   G   H   I   J
 3     K   L   M   N   O   P   Q   R   S   T   U   V   W   X   Y   Z
+7                             LF
+C             HT
 D                                 NOT **  OR  AND <=  >=  <>
 
 Códigos decimais das teclas alfanuméricas: linha coluna                      

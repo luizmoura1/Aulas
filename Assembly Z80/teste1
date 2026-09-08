@@ -1,0 +1,23 @@
+       org 30000   ; $7530
+
+;section .text
+;start:
+    ld  hl, dado    ; dado = $3b75 = 30011
+    ;call rotina
+    ;ret
+
+;section .data
+rotina:
+    ld  a, (hl)
+    cp  255         ; $ff
+    ret z
+
+    rst 16          ; $10
+    inc hl
+    jr  rotina
+
+dado:
+    defb "OI, MUNDO", 118, 255  ; $76, $ff ; LF, SENTINELA (instrução COPY do BASIC ZX81)
+
+    ;end            ; end start
+
