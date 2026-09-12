@@ -1,0 +1,28 @@
+
+INSTRUÇÕES DE CARGA/ARMAZENAGEM/ATRIBUIÇÃO
+                                        x86_32                      z80             arm32            
+origem          destino                                                                                         addressing 
+immediate       register        mov ecx, 1-byte                 ld b, 1-byte        mov r0, 1-byte              immediate 
+                                mov ecx, 2-bytes                ld bc, 2-bytes      mov r0, 2-bytes             "
+                                mov ecx, 4-bytes / address      ld bc, address      mov r0, 4-bytes / =address  "
+
+                [ register ]    mov byte [ecx], 1-byte          ld (hl), 1-byte                                 register indirect 
+                                mov word [ecx], 2-bytes                                                         " 
+                                mov dword [ecx], 4-bytes / address                                              "
+
+                [ address ]     mov byte [address], 1-byte                                                      direct memory
+                                mov word [address], 2-bytes                                                     "    
+                                mov dword [address], 4-bytes / address                                          " 
+
+register        register        mov ecx, edx                    ld b, d             mov r0, r1                  register
+                [ register ]    mov [ecx], edx                  ld (hl), a          str r0, [r1]                register indirect  
+                [ address ]     mov | dword | [address], ecx    ld (address), a     str r0, [PC, label]         direct memory 
+
+
+[ register ]    register        mov ecx, [edx]                  ld a, (hl)          ldr r0, [r1]                register indirect
+[ address ]     register        mov ecx, [address]              ld a, (address)     ldr r0, [PC, label]         direct memory     
+
+
+*imediato, imutável, literal: dado, endereço/rótulo
+** Nas instruções do ARM32, label ou #offset é rótulo absoluto ou um deslocamento numérico direto em bytes
+*** || encerra uma opcionalidade                    

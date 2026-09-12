@@ -2,7 +2,7 @@
 
 ;section .text
 ;start:
-    ld  hl, dado    ; dado = $3b75 = 30011
+    ld  hl, dado    ; dado = 30011 = $753b
     ;call rotina
     ;ret
 
@@ -17,7 +17,9 @@ rotina:
     jr  rotina
 
 dado:
-    defb "OI, MUNDO", 118, 255  ; $76, $ff ; LF, SENTINELA (instrução COPY do BASIC ZX81)
+    defb 52,46,26,0,50,58,51,41,52,118,255
+   ;defb $34,$2e,$1a,$00,$32,$3a,$33,$29,$34,$76,$ff
+   ;     o i , SPC m u n d o LF SENTINELA  (instrução COPY do BASIC ZX81)
 
     ;end            ; end start
 

@@ -1,0 +1,6 @@
+Tamanhos, letras e significados
+
+nibbles bits    bytes   nome    diretiva de alocação    registradores           tipo            faixa de valores                    cálculo
+1       4       0,5     nibble                                                                  0 ... 15     /   -8 ... 7           (4*ms_2bits + ls_2bits)
+2       8       1       byte    db / defb               A, B, C, D, E, H, L     char            0 ... 255    /   -128 ... 127       16*msn + lsn
+4       16      2       word    dw / defw               BC, DE, HL              short (int)     0 ... 65535  /   -32768 ... 32767   256*msb + lsb     

@@ -1,0 +1,53 @@
+Exercício - sugestão de 4 números constantes, pela ordem: 64, 128, 128, 192
+; --- ETAPA 1: CARGA DOS DADOS em DE e HL ---
+; forma 1
+LD D, n1
+LD E, n2
+LD H, n3
+LD L, n4
+
+; forma 2
+LD A, n1
+LD D, A
+
+LD A, n2
+LD E, A
+
+LD A, n3
+LD H, A
+
+LD A, n4
+LD L, A
+
+; forma 3
+LD DE, 256*n1 + n2
+LD HL, 256*n3 + n4
+
+; --- ETAPA 2: A SOMA DE DE E HL ---
+; forma 1: via ADD HL, __       (a mais simples)
+ADD HL, DE
+
+; forma 2: via ADD A, _         ( Atenção ao uso de ADD e ADC !)
+LD A, L
+ADD A, E        ; ADD A, n2 (se não usou a carga do byte baixo em E)
+LD L, A
+
+LD A, H
+ADC A, D        ; ADC A, n1 (se não usou a carga do byte alto em D)
+LD H, A
+
+; --- ETAPA 3: RETORNO PARA O BASIC ---
+LD B, H         ; Copia a parte alta do resultado para B
+LD C, L         ; Copia a parte baixa do resultado para C
+RET             ; Devolve o controle ao BASIC com o valor de BC
+
+
+Teoria:
+
+base hexadecimal - limite: maior valor com 2 dígitos hexadecimais: 0xFF = 255 = 377o = 1111 1111b
+Se L + E <= 255 então Carry = 0; portanto ADC A, D executa H + D + 0
+Se L + E >= 256 então Carry = 1; portanto ADC A, D executa H + D + 1
+
+base decimal  (limite: maior valor com 2 dígitos: 99)
+Se L + E <= 99  então Carry = 0; portanto ADC A, D executa H + D + 0
+Se L + E >= 100 ennão Carry = 1; portanto ADC A, D executa H + D + 1
