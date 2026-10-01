@@ -1,0 +1,17 @@
+
+exemplos    26 	            não	usado   30 	    28 	    29,31,32    5,6 	    7,8,27  diferença?									
+contexto    aritmético      aritmético  misto   texto 	texto/pad.  texto/pad.  texto   												
+entrada 	(( x ==	K ))    [[ -eq ]]   expr =  [ = ] 	[[ == ]]    case $x     test =  
+=K	 	    V 	            V? 	        V 	    V 	    V 	        V 	        V 	    não					
+!=K	 	    F 	            F? 	        F 	    F 	    F 	        F 	        F 	    não					
+a 	        F 	            F? 	        F 	    F 	    F 	        F 	        F 	    não						
+vazio 	    F 	            F? 	        F 	    F 	    F 	        F 	        F 	    não
+
+05 	        V 	            V? 	        V 	    F 	    F 	        F 	        F 	    sim						
+1+4 	    V 	            V? 	        F 	    F 	    F 	        F 	        F 	    sim						
+K 	        V? 	            V? 	        F? 	    F? 	    F? 	        F? 	        F? 	    sim						
+
+x 	        erro 	        erro? 	    F 	    F 	    F 	        F 	        F 	    não						
+08 	        erro 	        erro? 	    F 	    F 	    F 	        F 	        F 	    não
+
+

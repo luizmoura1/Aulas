@@ -1,0 +1,61 @@
+BASH
+contexto	numérico			                        misto	    textual	        texto, padrão		
+exemplos	let,(()) ==	    [[ ]] -eq	test,[] -eq     expr =,==	test,[] =,==	case,[[ ]] =,==	    conclusão	            exceção
+entrada								
+=K 	        V	            V	        V	            V	        V	            V	                V	
+!=K        	F	            F	        F	            F	        F	            F	                F	
+a	        F	            F	        F***	        F	        F	            F	                F	                    test,[] -eq
+vazio	    F	            F	        F***	        F	        F	            F	                F	                    test,[] -eq
+								
+05	        V	            V	        V	            V	        F	            F	                V(nmr, mst), F (txt)	
+1+4	        V	            V	        F***	        F	        F	            F	                V(nmr), F(txt, mst)	    test,[] -eq
+K	        V	            V	        F***	        F	        F	            F	                V(nmr), F(txt, mst)	    test,[] -eq
+								
+x	        F***	        F***	    F***	        F	        F	            F	                F	                    nmr
+08	        F***	        F***	    F	            F	        F	            F	                F	                    let,(()),[[]]
+
+
+
+
+
+PYTHON - testes.py
+contexto	
+exemplos	1       2       3       4       5       6       7       8       9       10      11      12      13
+entrada								
+=K 	        V       V       V       V       V       V       V       V       V       V       V       V       V   	
+
+!=K        	F       F       F       F       F       F       F       F       F       F       F       F       F   	
+
+x           ***     F       F       F       F       ***     F       F       ***     F       F       ***     F	        
+a	        ***     F       F       F       F       ***     F       F       ***     F       F       ***     F
+
+vazio	    F       F       F       F       F       ***     F       F       ***     F       F       F       F
+
+1+4	        V       F       F       F       F       ***     F       F       ***     F       F       V       F
+K	        V       F       F       F       F       ***     F       F       ***     F       F       V       F
+
+05	        V      	V       V       F       F       V       F       F       V       F       F       V       F
+								
+08	        ***     F       F       F       F       F       F       F       F       F       F       ***     F
+
+
+
+PYTHON - _if1.py  (com palpite, apenas =K, se k=5, e 05 daão V) -> se K, se K="05" e x forem texto, apenas '5' dá V
+contexto	
+exemplos	1       2       3       4       5       6       7       8       9       10      11      12      13      14      15      16      17      18      19      20      21      22      23      24      25      26
+entrada								
+=K 	        V       V       V       V       V       V       V       V       V       V       V       V       V   	V       V       V       V       V       V       V       V       V       V       V       V       V
+
+!=K        	F       F       F       F       F       F       F       F       F       F       F       F       F   	F       F       F       F       F       F       F       F       F       F       F       F
+
+x           F       F       F       F       F       F       F       F       F       F       F       F       F   	F       F       F       F       F       F       F       F       F       F       F       F
+a	        F       F       F       F       F       F       F       F       F       F       F       F       F   	F       F       F       F       F       F       F       F       F       F       F       F
+
+vazio       F       F       F       F       F       F       F       F       F       F       F       F       F   	F       F       F       F       F       F       F       F       F       F       F       F
+
+1+4         F       F       F       F       F       F       F       F       F       F       F       F       F   	F       F       F       F       F       F       F       F       F       F       F       F
+K	        F       F       F       F       F       F       F       F       F       F       F       F       F   	F       F       F       F       F       F       F       F       F       F       F       F
+
+05	        V       V       V       V       V       V       V       V       V       V       V       V       V   	V       V       V       V       V       V       V       V       V       V       V       V
+								
+08	        F       F       F       F       F       F       F       F       F       F       F       F       F   	F       F       F       F       F       F       F       F       F       F       F       F
