@@ -1,0 +1,108 @@
+COLA — TRANSFERÊNCIA DE ARQUIVOS ENTRE LUBUNTU E PS2
+
+OBJETIVO
+
+Partindo de aula1.pl no Lubuntu:
+
+1. Copiar para o PS2 em /tmp/
+2. Executar no PS2
+3. Copiar de volta para ~/Swap como aula1_cp1.pl
+4. Copiar novamente para o PS2, em /mnt/pendrive/
+5. Executar no pendrive
+6. Copiar de volta para ~/Swap como aula1_cp2.pl
+
+TERMINAL A — PS2
+Terminal usado para os comandos executados no PS2.
+
+TERMINAL B — LUBUNTU
+Terminal usado para os comandos scp.
+
+1. LUBUNTU → PS2 /tmp/
+
+TERMINAL B — LUBUNTU
+
+Estando no diretório onde está aula1.pl:
+
+scp -O aula1.pl ps2:/tmp/aula1.pl
+
+TERMINAL A — PS2
+
+cd /tmp
+
+perl aula1.pl
+
+TERMINAL B — LUBUNTU
+
+scp -O ps2:/tmp/aula1.pl ~/Swap/aula1_cp1.pl
+
+Resultado:
+
+~/Swap/aula1_cp1.pl
+
+2. MONTAR O PENDRIVE NO PS2
+
+TERMINAL A — PS2
+
+mkdir -p /mnt/pendrive
+
+mount -t vfat -o uid=guest,gid=guest /dev/sda1 /mnt/pendrive
+
+Neste PS2, assumimos que o pendrive é /dev/sda1.
+
+3. LUBUNTU → PS2 /mnt/pendrive/
+
+TERMINAL B — LUBUNTU
+
+No diretório onde está aula1.pl:
+
+scp -O aula1.pl ps2:/mnt/pendrive/aula1.pl
+
+TERMINAL A — PS2
+
+cd /mnt/pendrive
+
+perl aula1.pl
+
+TERMINAL B — LUBUNTU
+
+scp -O ps2:/mnt/pendrive/aula1.pl ~/Swap/aula1_cp2.pl
+
+Resultado:
+
+~/Swap/aula1_cp2.pl
+
+RESULTADO FINAL
+
+No Lubuntu:
+
+cd ~/Swap
+ls
+
+Devemos ter:
+
+aula1_cp1.pl
+aula1_cp2.pl
+
+aula1_cp1.pl = cópia que veio de /tmp/
+
+aula1_cp2.pl = cópia que veio de /mnt/pendrive/
+
+RESUMO DO FLUXO
+
+Lubuntu/aula1.pl
+|
++----> PS2:/tmp/aula1.pl
+|          |
+|          +----> ~/Swap/aula1_cp1.pl
+|
++----> PS2:/mnt/pendrive/aula1.pl
+|
++----> ~/Swap/aula1_cp2.pl
+
+IDEIA CENTRAL
+
+scp é executado no Lubuntu e transfere arquivos entre o Lubuntu e o PS2 através do SSH.
+
+Na ida, mantemos o nome aula1.pl.
+
+Na volta, mudamos o nome para distinguir de onde veio cada cópia.
