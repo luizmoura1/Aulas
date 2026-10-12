@@ -1,5 +1,5 @@
 /*
-Programa: Manipulação de caracteres - Aula 16 (C)
+Programa: Manipulação de caracteres - Aula 17 (C)
 Ambiente: Lubuntu/VS Code (client) e Haiku OS (server)
 Ferramentas: ssh, nano, gcc
 */
