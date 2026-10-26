@@ -11,7 +11,6 @@ function callback2(par2){
     if(palpite == K){
         console.log(`Acertou em ${tentativas} tentativa(s)! A constante é ${K}.`)
         rl.close()
-
     }else{
         tentativas++
         rl.question('Quase! Tente de novo: ', callback2)
