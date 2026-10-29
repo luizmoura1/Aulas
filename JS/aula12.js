@@ -1,4 +1,4 @@
-/*Etapa 1/4: Callbacks nomeadase declaradas separadamente
+/*Etapa 1/4: Callbacks nomeadas e declaradas separadamente
 * D E S A F I O
 */
 let tentativas = 1
