@@ -1,12 +1,13 @@
 import raylib as rl
-import raylibc as c
 
-rl.InitWindow(432, 243, "SmallBASIC/Raylib - Passo 1: O Palco")
+rl.InitWindow(480, 270, "SmallBASIC/Raylib - Passo 0: Janela")
 rl.SetTargetFPS(60)
 
 while (!rl.WindowShouldClose())
     rl.BeginDrawing()
-        rl.ClearBackground(c.RAYWHITE)
+    rl.ClearBackground([0, 200, 0])
     rl.EndDrawing()
 wend
 rl.CloseWindow()
+
+
