@@ -6,7 +6,7 @@ rl.SetTargetFPS(60)
 
 while (!rl.WindowShouldClose())
     rl.BeginDrawing()
-        rl.ClearBackground(c.RAYWHITE)
+    rl.ClearBackground(c.RAYWHITE)
     rl.EndDrawing()
 wend
 rl.CloseWindow()

@@ -28,3 +28,11 @@ escrita:
         mov ebx, 1      ; tela, terminal
         int 128
         ret
+
+; leitura editar
+mov ecx, s
+mov edx, 16
+
+mov eax, 3
+mov ebx, 0
+int 128   

@@ -11,7 +11,6 @@ mov eax, 3
 mov ebx, 0
 int 128   
 
-
 ; escrita
 mov ecx, s
 mov edx, 16
