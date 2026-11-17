@@ -1,0 +1,115 @@
+RESUMO DO COMPUTADOR – DIAGNÓSTICO DE HARDWARE Data: Novembro de 2026
+
+========================================
+
+COMPUTADOR E PLACA-MÃE
+
+Fabricante: ASUS Modelo: TUF GAMING B460M-PLUS Revisão: 1.xx BIOS: American Megatrends 0306 Data da BIOS: 18/05/2020 Plataforma: Intel, soquete LGA 1200
+
+========================================
+
+PROCESSADOR (CPU)
+
+Modelo: Intel Core i7-10700 Arquitetura: Comet Lake Núcleos físicos: 8 Núcleos lógicos (threads): 16 Frequência nominal: 2,9 GHz Frequência máxima: 4,8 GHz Cache L3: 16 MB
+
+Avaliação: Processador bastante competente, adequado para uso geral, programação, multitarefa e atividades mais exigentes.
+
+========================================
+
+PLACA DE VÍDEO (GPU)
+
+Modelo: NVIDIA GeForce GTX 1660 SUPER Arquitetura: Turing Driver: NVIDIA 615.71.09 OpenGL: 4.6 Saída de vídeo utilizada: HDMI Monitor conectado: Samsung SMT27A550
+
+Avaliação: Placa intermediária, ainda competente para jogos em Full HD, vídeos e aplicações gráficas. Fedora reconhece corretamente a GPU e utiliza o driver proprietário NVIDIA.
+
+========================================
+
+MEMÓRIA RAM
+
+Capacidade total: 32 GB Memória disponível no momento do diagnóstico: 31,24 GiB Memória em uso: 5,06 GiB Utilização: aproximadamente 16% Swap: 8 GB via ZRAM
+
+Avaliação: Excelente quantidade de memória para uso doméstico, programação e multitarefa.
+
+========================================
+
+ARMAZENAMENTO – HDs
+
+HD 1 – HITACHI
+
+Modelo: Hitachi HTS545050A7E380 Capacidade: 500 GB Velocidade: 5.400 RPM Horas de funcionamento: 6.502 Setores pendentes: 24 Eventos de realocação: 12 Testes estendidos: dois testes com falha Temperatura: 33 °C
+
+Avaliação: HD com problemas físicos de leitura. Era o HD original de um Xbox e foi reaproveitado para testes com Fedora. Não contém dados importantes.
+
+HD 2 – SEAGATE
+
+Modelo: Seagate ST1000DM010-2EP102 Capacidade: 1 TB Velocidade: 7.200 RPM Horas de funcionamento: 8.922 Setores pendentes: 160 Setores não corrigíveis: 160 Erros registrados no log ATA: 3.844 Teste curto anterior: falhou Temperatura: 38 °C
+
+Avaliação: Apresenta sinais claros de problemas físicos de leitura. Prioridade para backup dos arquivos pelo Windows e substituição futura.
+
+HD 3 – SEAGATE
+
+Modelo: Seagate ST500DM002-1BD142 Capacidade: 500 GB Velocidade: 7.200 RPM Horas de funcionamento: 28.484 Setores pendentes: 0 Setores realocados: 0 Setores não corrigíveis: 0 Erros históricos no log ATA: 251 Temperatura: 39 °C
+
+Avaliação: Apesar da idade e dos erros históricos registrados, os indicadores atuais de setores estão bons. É o HD em melhor situação entre os três.
+
+OBSERVAÇÃO: Os três HDs são conectados diretamente à placa-mãe por cabos SATA.
+
+========================================
+
+MONITOR
+
+Fabricante: Samsung Modelo: SMT27A550 Tamanho: 27 polegadas Resolução: 1920 x 1080 (Full HD) Conexão: HDMI
+
+========================================
+
+ÁUDIO E CONECTIVIDADE
+
+Áudio integrado: Intel High Definition Audio Áudio HDMI: NVIDIA Sistema de áudio: PipeWire
+
+Rede: Controladora Intel Ethernet I219-V Velocidade: Gigabit Ethernet (1.000 Mbps)
+
+Bluetooth: Adaptador TP-Link UB500 Versão Bluetooth: 5.1 Driver: btusb
+
+========================================
+
+SISTEMA OPERACIONAL
+
+Distribuição: Fedora Linux 44 Workstation Kernel: 7.2.13-200.fc44.x86_64 Ambiente gráfico: GNOME 50.6 Sessão gráfica: Wayland Driver NVIDIA: 615.71.09 Arquitetura: x86_64 (64 bits)
+
+========================================
+
+AVALIAÇÃO GERAL
+
+PROCESSADOR: Bom. Intel Core i7 de 10ª geração, ainda bastante competente.
+
+PLACA DE VÍDEO: Boa. GTX 1660 SUPER, adequada para uso geral e jogos em Full HD.
+
+MEMÓRIA RAM: Muito boa. 32 GB, quantidade confortável.
+
+PLACA-MÃE: Identificada. ASUS TUF GAMING B460M-PLUS.
+
+MONITOR: Identificado. Samsung de 27 polegadas Full HD.
+
+REDE E BLUETOOTH: Funcionando e identificados.
+
+HD HITACHI: Defeituoso. Mantido apenas para testes, sem dados importantes.
+
+HD SEAGATE 1 TB: Apresenta problemas importantes de leitura. Backup prioritário.
+
+HD SEAGATE 500 GB: Melhor situação entre os três, apesar da idade e dos erros históricos.
+
+========================================
+
+CONCLUSÃO
+
+O computador possui uma configuração equilibrada, com processador Intel Core i7-10700, 32 GB de RAM e placa de vídeo NVIDIA GTX 1660 SUPER.
+
+Não foram identificados problemas relevantes na CPU, GPU, memória RAM ou placa-mãe nos resultados apresentados.
+
+O principal ponto de atenção está no armazenamento: dois dos três HDs apresentam problemas físicos de leitura.
+
+A prioridade é realizar o backup do Seagate de 1 TB e planejar sua substituição.
+
+O Seagate de 500 GB apresenta indicadores SMART atuais satisfatórios, mas, devido à idade e ao histórico de erros, também merece acompanhamento.
+
+IMPORTANTE: Os resultados SMART representam o estado dos discos no momento da consulta. Não garantem funcionamento futuro nem substituem backups regulares.
